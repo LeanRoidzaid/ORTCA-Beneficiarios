@@ -1,6 +1,6 @@
 const app = require ('./config/server');
 
-require('./app/routes/usuarios')(app);
+require('./app/routes/beneficiarios')(app);
 
 //start server
 app.listen(app.get('port'), function() {

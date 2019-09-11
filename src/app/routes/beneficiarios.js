@@ -9,7 +9,7 @@ module.exports = function(app){
 
         connect.query('SELECT * FROM users', function(err, result){
             //console.log(result);
-            res.render('users/users',{
+            res.render('beneficiarios/beneficiarios',{
                 users: result
             });
         });    
