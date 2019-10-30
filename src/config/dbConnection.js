@@ -1,10 +1,19 @@
-const mysql = require('mysql');
+const Sequelize = require('sequelize')
+const config = require('./config')
 
-module.exports = function(){
-    return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        database: 'db_elaiss'
-    });
-}
+const sequelize = new Sequelize(config.DB.name, config.DB.user, config.DB.password, {
+  host: config.DB.host,
+  dialect: 'mysql',
+  port: config.DB.port
+})
 
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('[DB] Conectado')
+  })
+  .catch(err => {
+    console.log('[DB] No se conecto')
+  })
+
+module.exports = sequelize;
