@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 // Env Config
 const config = require('./config/config');
+process.env.CLAVEJWT = "123456";
 
 // parse application/json
 app.use(bodyParser.json());

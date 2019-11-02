@@ -3,7 +3,7 @@ const connection = require('../../config/dbConnection');
 
 const Beneficiarios = connection.define('beneficiarios', {
      id: {type: Sequelize.INTEGER, primaryKey: true},
-     nomrbre: Sequelize.STRING,
+     nombre: Sequelize.STRING,
      apellido: Sequelize.STRING,
      dni: Sequelize.INTEGER,
      fechaNac: Sequelize.DATE,

@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const dbConnection = require('../models/models_autorizados');
-
+const  autorizados = require('../controllers/controllers_autorizados');
+const  verificaRol  = require("../middleware/verificaRolMiddleware");
+const  verificaToken  = require("../middleware/verificaTokenMiddleware");
 /**
  * @swagger
  * /api/autorizados/all:
@@ -86,9 +87,18 @@ app.get("/all", function(req, res) {
  *         description: Ocurrio un error al guardar el autorizados en Mysql
  */
 
-app.post("/alta", function(req, res) {
-
-    
+app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministradorMiddleware,
+function (req, res) {
+    let result = autorizados.insertarAutorizado(req.body)
+    result.then(users => {
+        console.log(users);
+        res.send(users)
+         
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).send('Error en el insert de autorizado' + err.message);
+    })    
 });
 
 /**
@@ -179,49 +189,6 @@ app.post("/baja", function(req, res) {
     
 });
 
-
-/**
- * @swagger
- * /api/autorizados/agregarAutorizado:
- *   post:
- *     tags:
- *       - Agregar autorizado al benficiario
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         schema:
- *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
- *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
- *         required:
- *           - nombre
- *           - apellido
- *           - dni
- *           - fechaNac
- *     responses:
- *       200:
- *         description: autorizados insertado en tabla Mysql con exito
- *       401:
- *         description: Token invalido, no tiene permisos para ejecutar esta api
- *       400:
- *         description: Ocurrio un error al guardar el autorizados en Mysql
- */
-
-app.post("/agregarAutorizado", function(req, res) {
-
-});
 
 /**
  * @swagger

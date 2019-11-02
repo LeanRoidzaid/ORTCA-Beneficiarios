@@ -3,11 +3,11 @@ const connection = require('../../config/dbConnection');
 
 const Autorizados = connection.define('autorizados', {
      id: {type: Sequelize.INTEGER, primaryKey: true},
-     nomrbre: Sequelize.STRING,
+     nombre: Sequelize.STRING,
      apellido: Sequelize.STRING,
      dni: Sequelize.INTEGER,
      telefono: Sequelize.INTEGER,
-     data_alta: Sequelize.DATE,
+     fh_alta: Sequelize.DATE,
      fh_baja: Sequelize.DATE, 
      },{timestamps: false
   });

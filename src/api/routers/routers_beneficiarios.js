@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
-const dbConnection = require('../models/models_beneficiarios');
+const beneficiario = require('../controllers/controllers_beneficiarios');
+const  verificaRol  = require("../middleware/verificaRolMiddleware");
+const  verificaToken  = require("../middleware/verificaTokenMiddleware");
 
 /**
  * @swagger
@@ -86,9 +88,18 @@ app.get("/all", function(req, res) {
  *         description: Ocurrio un error al guardar el beneficiarios en Mysql
  */
 
-app.post("/alta", function(req, res) {
-
-    
+app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministradorMiddleware,
+    function (req, res) {
+        let result = beneficiario.insertarbeneficiario(req.body)
+        result.then(users => {
+            console.log(users);
+            res.send(users)
+             
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).send('Error en el insert de beneficiario' + err.message);
+    })
 });
 
 /**
@@ -176,7 +187,60 @@ app.post("/modificacion", function(req, res) {
 
 app.post("/baja", function(req, res) {
 
-    
+});
+/**
+ * @swagger
+ * /api/beneficiarios/agregarAutorizado:
+ *   post:
+ *     tags:
+ *       - Agregar autorizado al benficiario
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           properties:
+ *             nombre:
+ *               type: string
+ *             apellido:
+ *               type: string
+ *             dni:
+ *               type: integer
+ *             fechaNac:
+ *               type: string
+ *             telefono:
+ *               type: integer 
+ *         required:
+ *           - nombre
+ *           - apellido
+ *           - dni
+ *           - fechaNac
+ *     responses:
+ *       200:
+ *         description: autorizados insertado en tabla Mysql con exito
+ *       401:
+ *         description: Token invalido, no tiene permisos para ejecutar esta api
+ *       400:
+ *         description: Ocurrio un error al guardar el autorizados en Mysql
+ */
+
+app.post("/agregarAutorizado", verificaToken.verificaTokenMiddleware, verificaRol.esAdministradorMiddleware, 
+    function(req, res) {
+    let result = beneficiario.asignarAutorizado(req.body)
+    result.then(roles => {
+       console.log(roles);
+        res.send("Se agrego al autorizado " + req.body.idAutorizado + " al beneficiario " + req.body.idBenefiiario)
+         
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).send('Error al asignar Autorizado');
+        throw err;
+    })
+
 });
 
 /**
