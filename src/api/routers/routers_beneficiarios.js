@@ -60,6 +60,10 @@ app.get("/all", function(req, res) {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
@@ -113,6 +117,10 @@ app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministr
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
@@ -134,7 +142,7 @@ app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministr
  *           - fechaNac
  *     responses:
  *       200:
- *         description: Beneficiarios insertado en tabla Mysql con exito
+ *         description: Beneficiarios actualizado en tabla Mysql con exito
  *       401:
  *         description: Token invalido, no tiene permisos para ejecutar esta api
  *       400:
@@ -157,6 +165,10 @@ app.post("/modificacion", function(req, res) {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
@@ -199,25 +211,21 @@ app.post("/baja", function(req, res) {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
  *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
+ *             idBeneficiario:
+ *              type: integer
+ *             idAutorizado:
  *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
- *         required:
- *           - nombre
- *           - apellido
- *           - dni
- *           - fechaNac
+*         required:
+ *           - idBeneficiario
+ *           - idAutorizado
  *     responses:
  *       200:
  *         description: autorizados insertado en tabla Mysql con exito
@@ -248,7 +256,7 @@ app.post("/agregarAutorizado", verificaToken.verificaTokenMiddleware, verificaRo
  * /api/beneficiarios/retirarProducto:
  *   post:
  *     tags:
- *       - Beneficiario retirar producto
+ *       - Retiro producto
  *     produces:
  *       - application/json
  *     consumes:
@@ -258,24 +266,16 @@ app.post("/agregarAutorizado", verificaToken.verificaTokenMiddleware, verificaRo
  *         in: body
  *         schema:
  *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
+ *             idBeneficiario:
  *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
- *         required:
- *           - nombre
- *           - apellido
- *           - dni
- *           - fechaNac
+ *             idAutorizado:
+ *               type: integer
+  *         required:
+ *           - idBeneficiario
+ *           - idAutorizado
  *     responses:
  *       200:
- *         description: Beneficiarios insertado en tabla Mysql con exito
+ *         description: Se asigno autorizado correctamente
  *       401:
  *         description: Token invalido, no tiene permisos para ejecutar esta api
  *       400:

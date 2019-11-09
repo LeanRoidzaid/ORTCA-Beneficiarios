@@ -59,6 +59,10 @@ app.get("/all", function(req, res) {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
@@ -69,18 +73,18 @@ app.get("/all", function(req, res) {
  *               type: string
  *             dni:
  *               type: integer
- *             fechaNac:
+ *             fechaAlta:
  *               type: string
- *             telefono:
- *               type: integer 
+ *             fechaBaja:
+ *               type: string 
  *         required:
  *           - nombre
  *           - apellido
  *           - dni
- *           - fechaNac
+ *           - fechaAlta
  *     responses:
  *       200:
- *         description: autorizados insertado en tabla Mysql con exito
+ *         description: autorizado icreado correctamente
  *       401:
  *         description: Token invalido, no tiene permisos para ejecutar esta api
  *       400:
@@ -156,6 +160,10 @@ app.post("/modificacion", function(req, res) {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
  *       - name: body
  *         in: body
  *         schema:
@@ -166,18 +174,18 @@ app.post("/modificacion", function(req, res) {
  *               type: string
  *             dni:
  *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
+ *             fechaAlta:
+ *               type: date
+ *             fechaBaja:
+ *               type: date 
  *         required:
  *           - nombre
  *           - apellido
  *           - dni
- *           - fechaNac
+ *           - fechaAlta
  *     responses:
  *       200:
- *         description: autorizados insertado en tabla Mysql con exito
+ *         description: autorizado icreado correctamente
  *       401:
  *         description: Token invalido, no tiene permisos para ejecutar esta api
  *       400:
