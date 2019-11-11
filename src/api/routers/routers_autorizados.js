@@ -8,8 +8,8 @@ const  verificaToken  = require("../middleware/verificaTokenMiddleware");
  * /api/autorizados/all:
  *   get:
  *     tags:
- *       - listar autorizados
- *     description: Busca en Mysql a todos los autorizados
+ *       - Obtener todos los Autorizados *
+ *     description: Develve una lista  con todos los datos de los autorizados hasta el momento
  *     produces:
  *       - application/json
  *     responses:
@@ -27,22 +27,27 @@ app.get("/all", function(req, res) {
 
 /**
  * @swagger
- * /api/autorizados/autorizado:
+ * /api/autorizados/buscar:
  *   get:
  *     tags:
- *       - Busca un autorizados
- *     description: Busca en Mysql a todos al autorizado deseado
+ *       - Busca un Autorizado *
+ *     description: Busca un autorizado segun un dato
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - in: query
+ *         name: token 
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: devuelve json con la busqueda
  *       400:
- *         description: devuelve json avisando del error
+ *         description: devuelve el error
  *
  */
 
-app.get("/all", function(req, res) {
+app.get("/buscar", function(req, res) {
     
     
 });
@@ -53,7 +58,7 @@ app.get("/all", function(req, res) {
  * /api/autorizados/alta:
  *   post:
  *     tags:
- *       - Crear autorizado
+ *       - Crear Autorizado 
  *     produces:
  *       - application/json
  *     consumes:
@@ -73,6 +78,8 @@ app.get("/all", function(req, res) {
  *               type: string
  *             dni:
  *               type: integer
+ *             telefono:
+ *               type: string
  *             fechaAlta:
  *               type: string
  *             fechaBaja:
@@ -82,6 +89,7 @@ app.get("/all", function(req, res) {
  *           - apellido
  *           - dni
  *           - fechaAlta
+ *           - telefono
  *     responses:
  *       200:
  *         description: autorizado icreado correctamente
@@ -107,54 +115,10 @@ function (req, res) {
 
 /**
  * @swagger
- * /api/autorizados/modificacion:
+ * /api/autorizados/actualizar:
  *   post:
  *     tags:
- *       - Modificacion de autorizado
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         schema:
- *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
- *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
- *         required:
- *           - nombre
- *           - apellido
- *           - dni
- *           - fechaNac
- *     responses:
- *       200:
- *         description: autorizados insertado en tabla Mysql con exito
- *       401:
- *         description: Token invalido, no tiene permisos para ejecutar esta api
- *       400:
- *         description: Ocurrio un error al guardar el autorizados en Mysql
- */
-
-app.post("/modificacion", function(req, res) {
-
-    
-});
-
-/**
- * @swagger
- * /api/autorizados/baja:
- *   post:
- *     tags:
- *       - Baja logica de autorizados
+ *       - Actualiza los datos de un Autorizado
  *     produces:
  *       - application/json
  *     consumes:
@@ -174,18 +138,56 @@ app.post("/modificacion", function(req, res) {
  *               type: string
  *             dni:
  *               type: integer
- *             fechaAlta:
- *               type: date
- *             fechaBaja:
- *               type: date 
+ *             fechaNac:
+ *               type: string
+ *             telefono:
+ *               type: integer 
  *         required:
  *           - nombre
  *           - apellido
  *           - dni
- *           - fechaAlta
+ *           - fechaNac
  *     responses:
  *       200:
- *         description: autorizado icreado correctamente
+ *         description: Autorizados generado correctamente
+ *       401:
+ *         description: Token invalido, no tiene permisos para ejecutar esta api
+ *       400:
+ *         description: Ocurrio un error al guardar el autorizados en Mysql
+ */
+
+app.post("/actualizar", function(req, res) {
+
+    
+});
+
+/**
+ * @swagger
+ * /api/autorizados/baja:
+ *   post:
+ *     tags:
+ *       - Baja de Autorizado
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+
+ *         required:
+ *           - id
+ *     responses:
+ *       200:
+ *         description: Autorizado creado correctamente
  *       401:
  *         description: Token invalido, no tiene permisos para ejecutar esta api
  *       400:
@@ -203,7 +205,7 @@ app.post("/baja", function(req, res) {
  * /api/autorizados/quitarAutorizado:
  *   post:
  *     tags:
- *       - Eliminar autorizado para el beneficiario
+ *       - Eliminar Autorizado para un Beneficiario
  *     produces:
  *       - application/json
  *     consumes:
@@ -213,21 +215,14 @@ app.post("/baja", function(req, res) {
  *         in: body
  *         schema:
  *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
+ *             id:
  *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
+  *             idbeneficiario:
+ *               type: integer
  *         required:
- *           - nombre
- *           - apellido
- *           - dni
- *           - fechaNac
+ *           - id
+ *           - idbeneficiario
+
  *     responses:
  *       200:
  *         description: autorizados insertado en tabla Mysql con exito
@@ -237,7 +232,7 @@ app.post("/baja", function(req, res) {
  *         description: Ocurrio un error al guardar el autorizados en Mysql
  */
 
-app.post("/eliminarAutorizado", function(req, res) {
+app.post("/quitarAutorizado", function(req, res) {
 
     
 

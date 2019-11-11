@@ -9,15 +9,15 @@ const  verificaToken  = require("../middleware/verificaTokenMiddleware");
  * /api/beneficiarios/all:
  *   get:
  *     tags:
- *       - listar beneficiarios
- *     description: Busca en Mysql a todos los beneficiarios
+ *       - Listar Beneficiarios
+ *     description: Devuelve una lista con todos los Beneficiarios
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: devuelve json con la busqueda
+ *         description: Devuelve json con la busqueda
  *       400:
- *         description: devuelve json avisando del error
+ *         description: Devuelve json avisando del error
  *
  */
 
@@ -29,21 +29,32 @@ app.get("/all", function(req, res) {
 /**
  * @swagger
  * /api/beneficiarios/beneficiario:
- *   get:
+ *   post:
  *     tags:
  *       - Busca un beneficiario
- *     description: Busca en Mysql a todos al beneficiario deseado
+ *     description: Busca un Beneficiario segun un dato
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - in: query
+ *         name: token
+ *         schema:
+ *           type: string
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           properties:
+ *             dato:
+ *               type: string
  *     responses:
  *       200:
- *         description: devuelve json con la busqueda
+ *         description: Devuelve json con la busqueda
  *       400:
- *         description: devuelve json avisando del error
+ *         description: Devuelve json avisando del error
  *
  */
 
-app.get("/all", function(req, res) {
+app.post("/beneficiario", function(req, res) {
     
     
 });
@@ -54,7 +65,7 @@ app.get("/all", function(req, res) {
  * /api/beneficiarios/alta:
  *   post:
  *     tags:
- *       - Crear beneficiario
+ *       - Crear Beneficiario
  *     produces:
  *       - application/json
  *     consumes:
@@ -77,7 +88,7 @@ app.get("/all", function(req, res) {
  *             fechaNac:
  *               type: string
  *             telefono:
- *               type: integer 
+ *               type: string 
  *         required:
  *           - nombre
  *           - apellido
@@ -108,10 +119,10 @@ app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministr
 
 /**
  * @swagger
- * /api/beneficiarios/modificacion:
+ * /api/beneficiarios/actualiza:
  *   post:
  *     tags:
- *       - Modificacion de beneficiario
+ *       - Actualiza los datos de un Beneficiario
  *     produces:
  *       - application/json
  *     consumes:
@@ -173,16 +184,8 @@ app.post("/modificacion", function(req, res) {
  *         in: body
  *         schema:
  *           properties:
- *             nombre:
- *               type: string
- *             apellido:
- *               type: string
- *             dni:
+ *             id:
  *               type: integer
- *             fechaNac:
- *               type: string
- *             telefono:
- *               type: integer 
  *         required:
  *           - nombre
  *           - apellido

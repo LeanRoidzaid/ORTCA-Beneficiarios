@@ -1,11 +1,11 @@
 {
     "CLAVEJWT": 123456,
-    "PORT": 3001,
+    "PORT": 3002,
     "DB": {
         "name": "db_elaiss",
-        "host": "127.0.0.1",
+        "host": "0.0.0.0",
         "port": "3306",
-        "user": "root",
-        "password": ""
+        "user": "elaiss_app",
+        "password": "123456"
     }
 }
