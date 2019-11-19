@@ -7,5 +7,9 @@
         "port": "3306",
         "user": "elaiss_app",
         "password": "123456"
-    }
+    },
+    "URLUsuarios" : "localhost:3001",
+    "URLFe" : "localhost:3000",
+    "URLBeneficiarios" : "0.0.0.0:3002",
+    "Protocol": "http://"
 }

@@ -21,9 +21,9 @@ const  verificaToken  = require("../middleware/verificaTokenMiddleware");
  *
  */
 
-app.get("/all", function(req, res) {
-    
-    
+app.get("/all", async function(req, res) {
+    var beneficiarios = await beneficiario.listar();
+    res.send(beneficiarios);
 });
 
 /**

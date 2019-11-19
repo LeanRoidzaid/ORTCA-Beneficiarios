@@ -7,5 +7,8 @@
         "port": "3306",
         "user": "elaiss_app",
         "password": "123456"
-    }
+    },
+    "URLUsuarios" : "nodeusu:3001",
+    "URLFe" : "nodefe:3000",
+    "URLBeneficiarios" : "nodebenef:3002"
 }

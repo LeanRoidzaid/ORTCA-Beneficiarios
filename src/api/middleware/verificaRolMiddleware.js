@@ -1,18 +1,17 @@
 exports.esAdministradorMiddleware = async function(req, res, next) {
     
-    var admin = false
-    var adminitrativo = false
+    var admin = false;
+
     for (var i = 0; i < req.tokenDesencriptado.datostoken.roles.length; i++) {
-        if (req.tokenDesencriptado.datostoken.roles[i].id==4) {
+        if (req.tokenDesencriptado.datostoken.roles[i].idRol==4) {
             admin = true;
         };
-        if (req.tokenDesencriptado.datostoken.roles[i].id==2) {
-            adminitrativo = true;
-        };    
     };
-    if(!admin && !adminitrativo ){
-        return res.status(401).json({ error: 'Solo personal administrativo puede realizar esta accion' });
+
+    if(!admin){
+        return res.status(401).json({ error: 'Debe se administrador para esta accion' });
     }
+
 
     next();
 };

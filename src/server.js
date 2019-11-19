@@ -26,7 +26,7 @@ const swaggerDefinition = {
     version: "1.0.0",
     description: "API Beneficiarios - ELAISS"
   },
-  host: "localhost:" + config.PORT,
+  host: config.URLUsuarios ,
   basePath: "/"
 };
 

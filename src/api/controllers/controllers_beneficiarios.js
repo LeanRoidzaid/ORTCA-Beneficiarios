@@ -20,3 +20,6 @@ exports.asignarAutorizado = function(benefAutoriado){
         id_autorizado: benefAutoriado.idAutorizado,
        })
 }
+exports.listar = async function(){
+    return await BENEFICIARIO.findAll();
+}
