@@ -25,7 +25,10 @@ app.get("/all", async function(req, res) {
     var beneficiarios = await beneficiario.listar();
     res.send(beneficiarios);
 });
-
+app.get("/autorizadosByBeneficiario", async function(req, res) {
+    var autorizados = await beneficiario.autorizadosByBeneficiario();
+    res.send(autorizados);
+});
 /**
  * @swagger
  * /api/beneficiarios/beneficiario:

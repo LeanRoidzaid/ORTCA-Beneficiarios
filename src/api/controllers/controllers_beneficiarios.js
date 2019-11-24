@@ -23,3 +23,4 @@ exports.asignarAutorizado = function(benefAutoriado){
 exports.listar = async function(){
     return await BENEFICIARIO.findAll();
 }
+

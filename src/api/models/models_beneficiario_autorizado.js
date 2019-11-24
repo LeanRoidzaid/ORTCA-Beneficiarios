@@ -7,4 +7,6 @@ const BenefAutorizado = sequelize.define('beneficiario_autorizado', {
      id_autorizado: Sequelize.INTEGER,
      },{timestamps: false
   });
+
+
 module.exports = BenefAutorizado; 
