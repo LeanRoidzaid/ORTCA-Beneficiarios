@@ -6,7 +6,6 @@
   "scripts": {
     "test": "mocha --exit",
     "start": "node src/server.js"
-  
   },
   "keywords": [],
   "author": "",
