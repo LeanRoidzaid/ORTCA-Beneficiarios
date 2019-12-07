@@ -14,6 +14,19 @@ exports.insertarbeneficiario = function(beneficiario){
        })
 }
 
+exports.actualizarbeneficiario = function(beneficiario){
+    return BENEFICIARIO.update({
+        nombre: beneficiario.nombre,
+        apellido: beneficiario.apellido,
+        dni: beneficiario.dni,
+        fechaNac: beneficiario.fechaNac,
+        telefono: beneficiario.telefono,
+        data_created: beneficiario.data_created,
+        fh_baja: beneficiario.fh_baja, 
+       },{where:{id:beneficiario.id}})
+}
+
+
 exports.asignarAutorizado = function(benefAutoriado){
     return BENEFAUTORIZADO.create({
         id_beneficiario: benefAutoriado.idBeneficiario,  
@@ -23,4 +36,6 @@ exports.asignarAutorizado = function(benefAutoriado){
 exports.listar = async function(){
     return await BENEFICIARIO.findAll();
 }
+
+
 

@@ -25,8 +25,10 @@ app.get("/all", async function(req, res) {
     var beneficiarios = await beneficiario.listar();
     res.send(beneficiarios);
 });
+
+
 app.get("/autorizadosByBeneficiario", async function(req, res) {
-    var autorizados = await beneficiario.autorizadosByBeneficiario();
+    var autorizados = await beneficiario.autorizadosByBeneficiario(req.query.idbeneficiario);
     res.send(autorizados);
 });
 /**
@@ -106,7 +108,7 @@ app.post("/beneficiario", function(req, res) {
  *         description: Ocurrio un error al guardar el beneficiarios en Mysql
  */
 
-app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministradorMiddleware,
+app.post("/alta", verificaToken.verificaTokenMiddleware, 
     function (req, res) {
         let result = beneficiario.insertarbeneficiario(req.body)
         result.then(users => {
@@ -116,13 +118,13 @@ app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministr
         })
         .catch(err => {
             console.log(err);
-            res.status(400).send('Error en el insert de beneficiario' + err.message);
+            res.status(400).json({'error':'Error en el insert de beneficiario' + err.message}).send();
     })
 });
 
 /**
  * @swagger
- * /api/beneficiarios/actualiza:
+ * /api/beneficiarios/actualizar:
  *   post:
  *     tags:
  *       - Actualiza los datos de un Beneficiario
@@ -163,8 +165,19 @@ app.post("/alta", verificaToken.verificaTokenMiddleware, verificaRol.esAdministr
  *         description: Ocurrio un error al guardar el beneficiarios en Mysql
  */
 
-app.post("/modificacion", function(req, res) {
+app.post("/actualizar", function(req, res) {
+    let result = beneficiario.actualizarbeneficiario(req.body)
+    result.then(users => {
+        console.log(users);
+        res.send(users)
+         
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json({'error':'Error en el insert de beneficiario' + err.message}).send();
 
+    
+    })
     
 });
 
