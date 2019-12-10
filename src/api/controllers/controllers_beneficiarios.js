@@ -39,3 +39,6 @@ exports.listar = async function(){
 
 
 
+exports.listarById = async function(idBeneficiario){
+    return await BENEFICIARIO.findAll({where:{id:idBeneficiario}});
+}

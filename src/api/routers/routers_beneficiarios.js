@@ -25,6 +25,10 @@ app.get("/all", async function(req, res) {
     var beneficiarios = await beneficiario.listar();
     res.send(beneficiarios);
 });
+app.get("/obtenerBeneficiario", async function(req, res) {
+    var beneficiarios = await beneficiario.listarById(req.query.idBeneficiario);
+    res.send(beneficiarios);
+});
 
 
 app.get("/autorizadosByBeneficiario", async function(req, res) {
